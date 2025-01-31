@@ -4,11 +4,11 @@ from datetime import datetime, timedelta
 import pytz  
 from IPython.core.display import display, HTML
 
-# Definir fusos horários
+# Definir fusos horarios
 et_tz = pytz.timezone('US/Eastern')  
 brt_tz = pytz.timezone('America/Sao_Paulo')  
 
-# Buscar jogos do próximo dia
+# Buscar jogos do proximo dia
 future_date = datetime.today() + timedelta(days=1)
 future_date_str = future_date.strftime('%m/%d/%Y')  
 
@@ -19,7 +19,7 @@ games = scoreboard.get_dict()
 # Mapeando os IDs das equipes para os nomes
 team_dict = {team['id']: team['full_name'] for team in teams.get_teams()}
 
-# Criando HTML dinâmico
+# Criando HTML dinamico
 html_output = """
 <style>
     body {
@@ -82,19 +82,17 @@ html_output = """
     }
 
     .date-time {
-        margin-top: 10px; /* Ajuste da distância entre times e data/hora */
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 8px;
         width: 100%;
     }
 
-    .date {
-        font-size: 16px;
+    .date, .time {
+        font-size: 14px;
         color: #777;
-    }
-
-    .time {
-        font-size: 18px;
-        color: #007bff;
     }
 
     .header {
@@ -132,7 +130,7 @@ for game in games['resultSets'][0]['rowSet']:
     home_logo_url = f"https://cdn.nba.com/logos/nba/{home_team_id}/primary/L/logo.svg"
     away_logo_url = f"https://cdn.nba.com/logos/nba/{away_team_id}/primary/L/logo.svg"
 
-    # Corrigir e converter o horário para Brasília
+    # Corrigir e converter o horario para Brasilia
     try:
         # Obtendo a data em formato completo
         game_date_obj = datetime.strptime(game_date_str, '%Y-%m-%dT%H:%M:%S')
@@ -162,8 +160,8 @@ for game in games['resultSets'][0]['rowSet']:
             </div>
         </div>
         <div class="date-time">
-            <div class="date">📅 {game_date_brt_str}</div>
-            <div class="time">🕒 {game_time_brt_str} (BRT)</div>
+            <div class="date">{game_date_brt_str}</div>
+            <div class="time">{game_time_brt_str} (BRT)</div>
         </div>
     </div>
     """
